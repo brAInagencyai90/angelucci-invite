@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pagina di invito per Angelucci Connect - Gestione Flotta">
+    <title>Invito Angelucci Connect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .button:active {
+            transform: translateY(0);
+        }
+        
+        .status {
+            margin-top: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .status.info {
+            background: #e3f2fd;
+            color: #1976d2;
+            border-left: 4px solid #1976d2;
+        }
+        
+        .status.success {
+            background: #e8f5e9;
+            color: #388e3c;
+            border-left: 4px solid #388e3c;
+        }
+        
+        .status.error {
+            background: #ffebee;
+            color: #d32f2f;
+            border-left: 4px solid #d32f2f;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .instructions {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .instructions h3 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🚛</div>
+        <h1>Benvenuto in Angelucci Connect</h1>
+        <p class="subtitle">Piattaforma di Gestione Flotta</p>
+        <p>Sei stato invitato a unirti alla nostra piattaforma. Clicca il pulsante qui sotto per completare la registrazione.</p>
+        
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <p>Apertura dell'app in corso...</p>
+        </div>
+        
+        <div id="buttons">
+            <button id="openAppBtn" class="button">Apri l'App e Registrati</button>
+        </div>
+        
+        <div id="status" class="status hidden"></div>
+        
+        <div id="instructions" class="instructions hidden">
+            <h3>📱 App non installata?</h3>
+            <ol>
+                <li>Contatta l'amministratore per ricevere il file APK</li>
+                <li>Scarica e installa l'app sul tuo dispositivo Android</li>
+                <li>Torna a questa pagina e clicca nuovamente il pulsante</li>
+            </ol>
+        </div>
+        
+        <footer>
+            © 2024 Angelucci Fleet Management
+        </footer>
+    </div>
+
+    <script>
+        // Estrai il token dall'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        
+        const openAppBtn = document.getElementById('openAppBtn');
+        const loading = document.getElementById('loading');
+        const buttons = document.getElementById('buttons');
+        const status = document.getElementById('status');
+        const instructions = document.getElementById('instructions');
+        
+        // Funzione per mostrare lo status
+        function showStatus(type, message) {
+            status.className = `status ${type}`;
+            status.textContent = message;
+            status.classList.remove('hidden');
+        }
+        
+        // Funzione per aprire l'app
+        function openApp() {
+            if (!token) {
+                showStatus('error', '❌ Token di invito non valido. Verifica il link ricevuto via email o contatta l\'amministratore.');
+                return;
+            }
+            
+            // Mostra loading
+            loading.classList.remove('hidden');
+            buttons.classList.add('hidden');
+            status.classList.add('hidden');
+            
+            // Costruisci l'URL dell'app con custom URL scheme
+            const appUrl = `angelucci://invite?token=${token}`;
+            
+            console.log('Tentativo di apertura app con URL:', appUrl);
+            
+            // Prova ad aprire l'app
+            window.location.href = appUrl;
+            
+            // Dopo 2 secondi, controlla se l'app si è aperta
+            setTimeout(() => {
+                // Se siamo ancora sulla pagina, l'app probabilmente non si è aperta
+                loading.classList.add('hidden');
+                buttons.classList.remove('hidden');
+                instructions.classList.remove('hidden');
+                showStatus('info', '⚠️ L\'app non si è aperta automaticamente. Assicurati di aver installato Angelucci Connect sul tuo dispositivo.');
+            }, 2000);
+        }
+        
+        // Event listener per il bottone
+        openAppBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openApp();
+        });
+        
+        // Rileva se è mobile
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // Log per debug
+        console.log('User Agent:', navigator.userAgent);
+        console.log('Is Mobile:', isMobile);
+        console.log('Token:', token);
+        
+        // Su mobile con token valido, prova ad aprire automaticamente
+        if (isMobile && token) {
+            showStatus('info', '🔄 Tentativo di apertura automatica dell\'app...');
+            setTimeout(() => {
+                openApp();
+            }, 500);
+        } else if (!token) {
+            showStatus('error', '❌ Token di invito mancante. Verifica il link ricevuto via email.');
+        } else {
+            // Desktop
+            showStatus('info', '💻 Questa pagina è ottimizzata per dispositivi mobili. Apri il link dal tuo smartphone per completare la registrazione.');
+        }
+    </script>
+</body>
+</html>
+
